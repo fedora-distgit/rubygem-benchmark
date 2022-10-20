@@ -29,19 +29,13 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 
 %build
-# Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
-
-# %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
-# by default, so that we can move it into the buildroot in %%install
 %gem_install
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
-
-
 
 %check
 pushd .%{gem_instdir}
